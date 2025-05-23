@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Adam's Website"
+  site-url: "https://adebenedictis2020.github.io"
   navbar:
     left:
       - href: index.qmd
