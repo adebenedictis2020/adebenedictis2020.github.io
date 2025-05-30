@@ -3,3 +3,10 @@ title: "Adam's Website"
 ---
 
 Hello
+
+```(python)
+x=1
+y=2
+z=x+y
+print("The sum of", x, "and", y, "is", z)
+```
