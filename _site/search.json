@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Adam’s Website",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Hello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,12 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "Adam's Website",
+    "section": "",
+    "text": "x=1\ny=2\nz= x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)"
   }
 ]
