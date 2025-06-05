@@ -8,8 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - analysis.qmd
+      - href: about.qmd
+        text: About
+      - href: analysis.qmd
+        text: Job Analysis
 
 format:
   html:
