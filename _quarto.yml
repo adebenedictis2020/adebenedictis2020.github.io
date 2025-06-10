@@ -2,6 +2,12 @@ project:
   type: website
 
 website:
+  announcement: 
+    icon: info-circle
+    dismissable: true
+    content: "**Alert** - This website is currently under construction. Please check back later for updates."
+    type: primary
+    position: below-navbar
   title: "Adam DeBenedictis"
   site-url: "https://adebenedictis2020.github.io"
   navbar:
