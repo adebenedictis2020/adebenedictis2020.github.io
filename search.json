@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "",
+    "section": "",
+    "text": "x=1\ny=2\nz= x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Adam DeBenedictis",
@@ -7,17 +14,17 @@
     "text": "Hello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   },
   {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact Me",
+    "section": "",
+    "text": "For contact information, please fill out the below:"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site"
-  },
-  {
-    "objectID": "introduction.html",
-    "href": "introduction.html",
-    "title": "",
-    "section": "",
-    "text": "x=1\ny=2\nz= x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   }
 ]
