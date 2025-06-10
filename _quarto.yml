@@ -8,18 +8,16 @@ website:
     content: "**Alert** - This website is currently under construction. Please check back later for updates."
     type: primary
     position: below-navbar
-  navbar: 
-    tools:
-      - icon: linkedin
-        href: https://www.linkedin.com/in/adamdebenedictis/
-  title: "Adam DeBenedictis"
-  site-url: "https://adebenedictis2020.github.io"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - href: about.qmd
         text: About
+    tools:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/adamdebenedictis/
+
 
 format:
   html:
