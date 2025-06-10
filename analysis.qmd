@@ -1,8 +1,0 @@
----
-title: "Job Postings Data Analysis"
-author: "Adam DeBenedictis"
-format: html
-execute:
-    echo: true
----
-
