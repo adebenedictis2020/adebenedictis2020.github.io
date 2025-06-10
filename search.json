@@ -18,7 +18,7 @@
     "href": "contact.html",
     "title": "Contact Me",
     "section": "",
-    "text": "For contact information, please fill out the below:"
+    "text": "For contact information, please fill out the below:\n\nName \nEmail \nMessage\n\n  I’d like a copy of your résumé \n\n\n\nSend\n\n\nform { max-width: 600px; margin: 2rem auto; display: flex; flex-direction: column; gap: 1rem; padding: 1rem; background: #1e1e1e; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }\ninput, textarea { padding: 0.75rem; border: none; border-radius: 6px; }\nlabel { font-weight: bold; margin-bottom: 0.25rem; }\nbutton { background: #ffcc00; color: black; font-weight: bold; border: none; padding: 0.75rem; border-radius: 6px; cursor: pointer; }"
   },
   {
     "objectID": "about.html",
