@@ -15,7 +15,7 @@ website:
       - href: about.qmd
         text: About
     tools:
-      - icon: linkedin
+      - text: "🔗 LinkedIn"
         href: https://www.linkedin.com/in/adamdebenedictis/
 
 
