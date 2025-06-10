@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Adam’s Website",
+    "title": "Adam DeBenedictis",
     "section": "",
     "text": "Hello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   },
