@@ -1,5 +1,7 @@
 ---
 title: "Adam DeBenedictis"
+about:
+  template: trestles
 ---
 
 Hello
