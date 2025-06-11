@@ -12,8 +12,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: About
+      - href: dashboards.qmd
+        text: Dashboards
       - href: contact.qmd
         text: Contact
     tools:
