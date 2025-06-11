@@ -1,23 +1,12 @@
-:::{.cell}
-<style>
-.sidebar-title h1 {
-  text-align: center;
-}
-</style>
-:::
-
 ---
 title: "Adam DeBenedictis"
 about:
   template: trestles
+  description: "Hi!"
 format:
   html:
     css: styles.css
 ---
-
-::: {.custom-subtitle}
-Hello! My name is Adam.
-:::
 
 
 
