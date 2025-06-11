@@ -12,7 +12,7 @@ about:
   template: trestles
 
 
-  "Hello! My name is Adam.""
+  description: "Hello! My name is Adam."
 ---
 
 Hello
