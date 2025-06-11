@@ -10,8 +10,6 @@
 title: "Adam DeBenedictis"
 about:
   template: trestles
-
-
   description: "Hello! My name is Adam."
 ---
 
