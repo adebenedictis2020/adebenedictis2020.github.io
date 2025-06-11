@@ -1,3 +1,11 @@
+:::{.cell}
+<style>
+.sidebar-title h1 {
+  text-align: center;
+}
+</style>
+:::
+
 ---
 title: "Adam DeBenedictis"
 about:
