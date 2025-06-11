@@ -10,8 +10,16 @@
 title: "Adam DeBenedictis"
 about:
   template: trestles
-  description: "Hello! My name is Adam."
+format:
+  html:
+    css: styles.css
 ---
+
+::: {.custom-subtitle}
+Hello! My name is Adam.
+:::
+
+
 
 Hello
 
