@@ -18,6 +18,6 @@
     "href": "index.html",
     "title": "Adam DeBenedictis",
     "section": "",
-    "text": "Hello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
+    "text": "Hello! My name is Adam.\n\nHello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   }
 ]
