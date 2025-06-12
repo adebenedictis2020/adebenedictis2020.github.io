@@ -4,7 +4,7 @@ project:
 website:
   announcement: 
     icon: info-circle
-    dismissable: true
+    dismissible: true
     content: "**Alert** - This website is currently under construction. Please check back later for updates."
     type: primary
     position: below-navbar
