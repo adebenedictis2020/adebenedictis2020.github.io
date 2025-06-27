@@ -1,0 +1,12 @@
+{
+  "hash": "0c1df792c8c37029a948c6608e53a46e",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"\"\nabout:\n  template: trestles\n  image: headshot.jpg\nformat:\n  html:\n    css: styles.css\n---\n\n# Adam DeBenedictis\n\nHi!\n\nHello\n\n::: {#2d28b752 .cell execution_count=1}\n``` {.python .cell-code}\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nThe sum of 1 and 2 is 3\n```\n:::\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

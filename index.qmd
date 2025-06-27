@@ -1,20 +1,23 @@
 ---
-title: "Adam DeBenedictis"
+title: ""
 about:
   template: trestles
-  description: "Hi!"
+  image: headshot.jpg
+  links:
+    - text: "LinkedIn"
+      href: "https://www.linkedin.com/in/adamdebenedictis/"
+      icon: linkedin
+      target: "_blank"
+    - text: "GitHub"
+      href: "https://github.com/adebenedictis2020"
+      icon: github
+      target: "_blank"
 format:
   html:
     css: styles.css
 ---
 
+# Adam DeBenedictis
 
+Hi! My name is Adam and I am currently a student at Boston University studying Applied Business Analytics. 
 
-Hello
-
-```{python}
-x=1
-y=2
-z=x+y
-print("The sum of", x, "and", y, "is", z)
-```

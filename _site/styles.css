@@ -42,3 +42,8 @@ button {
   color: #ccc;
   margin-top: 1rem;
 }
+
+
+.sidebar-title h1 {
+  text-align: center;
+}

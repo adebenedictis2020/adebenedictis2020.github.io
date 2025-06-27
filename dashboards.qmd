@@ -1,0 +1,12 @@
+---
+title: "Dashboard Examples"
+format:
+  html:
+    css: styles.css
+---
+
+# Dashboard Examples
+
+Welcome to my dashboard examples page!
+
+Here you can find various data visualization projects and interactive dashboards I've created.
