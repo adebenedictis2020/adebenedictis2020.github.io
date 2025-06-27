@@ -14,6 +14,13 @@
     "text": "Dashboard Examples\nWelcome to my dashboard examples page!\nHere you can find various data visualization projects and interactive dashboards I’ve created."
   },
   {
+    "objectID": "physics_data.html",
+    "href": "physics_data.html",
+    "title": "Physics Teacher Data Analysis",
+    "section": "",
+    "text": "Let’s begin by exploring the physics teacher dataset and examining all available columns.\n\n# Import necessary libraries\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Display all columns without truncation\npd.set_option('display.max_columns', None)\npd.set_option('display.width', None)\npd.set_option('display.max_colwidth', None)\n\n\nRunning cells with '.venv (Python 3.12.3)' requires the ipykernel package.\n\nInstall 'ipykernel' into the Python environment. \n\nCommand: 'c:/Users/adamd/Desktop/adebenedictis2020.github.io/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'\n\n\n\n\n# Load the physics teacher data\n# Note: Replace 'physics_data.csv' with the actual filename/path of your data\ntry:\n    df = pd.read_csv('physics_data.csv')\n    print(\"Data loaded successfully!\")\n    print(f\"Dataset shape: {df.shape}\")\n    print(\"\\n\" + \"=\"*50)\n    print(\"ALL COLUMNS IN THE DATASET:\")\n    print(\"=\"*50)\n    \n    # Print all column names\n    for i, column in enumerate(df.columns, 1):\n        print(f\"{i:2d}. {column}\")\n    \n    print(f\"\\nTotal number of columns: {len(df.columns)}\")\n    \nexcept FileNotFoundError:\n    print(\"File not found. Please check the filename and path.\")\n    print(\"Available files in current directory:\")\n    import os\n    files = [f for f in os.listdir('.') if f.endswith(('.csv', '.xlsx', '.json'))]\n    for file in files:\n        print(f\"  - {file}\")"
+  },
+  {
     "objectID": "contact.html",
     "href": "contact.html",
     "title": "Contact Me",
