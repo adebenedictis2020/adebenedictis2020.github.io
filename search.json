@@ -7,6 +7,13 @@
     "text": "x=1\ny=2\nz= x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
   },
   {
+    "objectID": "dashboards.html",
+    "href": "dashboards.html",
+    "title": "Dashboard Examples",
+    "section": "",
+    "text": "Dashboard Examples\nWelcome to my dashboard examples page!\nHere you can find various data visualization projects and interactive dashboards I’ve created."
+  },
+  {
     "objectID": "contact.html",
     "href": "contact.html",
     "title": "Contact Me",
@@ -18,6 +25,6 @@
     "href": "index.html",
     "title": "Adam DeBenedictis",
     "section": "",
-    "text": "Hello! My name is Adam.\n\nHello\n\nx=1\ny=2\nz=x+y\nprint(\"The sum of\", x, \"and\", y, \"is\", z)\n\nThe sum of 1 and 2 is 3"
+    "text": "Adam DeBenedictis\nHi! My name is Adam and I am currently a student at Boston University studying Applied Business Analytics."
   }
 ]
