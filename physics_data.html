@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -173,50 +176,443 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Let’s begin by exploring the physics teacher dataset and examining all available columns.</p>
-<div id="433c1dea" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div id="dda1a1fb" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kagglehub</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download latest version</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> kagglehub.dataset_download(<span class="st">"kanchana1990/linkedins-2023-24-us-math-teacher-jobs"</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display all columns without truncation</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="va">None</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_colwidth'</span>, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg ansi-bold">Running cells with '.venv (Python 3.12.3)' requires the ipykernel package.
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Path to dataset files:"</span>, path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Path to dataset files: C:\Users\adamd\.cache\kagglehub\datasets\kanchana1990\linkedins-2023-24-us-math-teacher-jobs\versions\1</code></pre>
+</div>
+</div>
+<div id="433c1dea" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display all columns without truncation</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="va">None</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_colwidth'</span>, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="961bcee5" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install plotly if not already installed</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> plotly</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"plotly is already installed!"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Installing plotly..."</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"plotly"</span>])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> plotly</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"plotly installed successfully!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>plotly is already installed!</code></pre>
+</div>
+</div>
+<div id="969793db" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop unwanted columns</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Before dropping columns:"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns: </span><span class="sc">{</span><span class="bu">list</span>(df.columns)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># List of columns to drop</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>columns_to_drop <span class="op">=</span> [<span class="st">'description'</span>, <span class="st">'jobUrl'</span>, <span class="st">'jobURL'</span>, <span class="st">'url'</span>, <span class="st">'URL'</span>, <span class="st">'link'</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop columns that exist</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dropped_columns <span class="op">=</span> []</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> columns_to_drop:</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> col <span class="kw">in</span> df.columns:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> df.drop(col, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        dropped_columns.append(col)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dropped_columns:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Dropped columns: </span><span class="sc">{</span>dropped_columns<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">No target columns found to drop"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">After dropping columns:"</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Remaining columns: </span><span class="sc">{</span><span class="bu">list</span>(df.columns)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before dropping columns:
+Shape: (769, 12)
+Columns: ['title', 'location', 'postedTime', 'publishedAt', 'companyName', 'applicationsCount', 'contractType', 'experienceLevel', 'workType', 'sector', 'salary', 'state']
 
-</span><span class="ansi-red-fg ansi-bold">Install 'ipykernel' into the Python environment. 
+No target columns found to drop
 
-</span><span class="ansi-red-fg ansi-bold">Command: 'c:/Users/adamd/Desktop/adebenedictis2020.github.io/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'</span></pre>
+After dropping columns:
+Shape: (769, 12)
+Remaining columns: ['title', 'location', 'postedTime', 'publishedAt', 'companyName', 'applicationsCount', 'contractType', 'experienceLevel', 'workType', 'sector', 'salary', 'state']</code></pre>
+</div>
+</div>
+<div id="70c69d92" class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first 5 rows of the dataset in table format</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"FIRST 5 ROWS OF THE DATASET:"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display as a nice table</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FIRST 5 ROWS OF THE DATASET:
+==================================================</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">title</th>
+<th data-quarto-table-cell-role="th">location</th>
+<th data-quarto-table-cell-role="th">postedTime</th>
+<th data-quarto-table-cell-role="th">publishedAt</th>
+<th data-quarto-table-cell-role="th">companyName</th>
+<th data-quarto-table-cell-role="th">applicationsCount</th>
+<th data-quarto-table-cell-role="th">contractType</th>
+<th data-quarto-table-cell-role="th">experienceLevel</th>
+<th data-quarto-table-cell-role="th">workType</th>
+<th data-quarto-table-cell-role="th">sector</th>
+<th data-quarto-table-cell-role="th">salary</th>
+<th data-quarto-table-cell-role="th">state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Math Tutors/Teachers (Grades 6-9) *Urgently Hiring*</td>
+<td>Thompson, CT</td>
+<td>2 months ago</td>
+<td>2023-11-30</td>
+<td>Catapult Learning</td>
+<td>Be among the first 25 applicants</td>
+<td>Part-time</td>
+<td>Entry level</td>
+<td>Education and Training</td>
+<td>Education Administration Programs</td>
+<td>NaN</td>
+<td>CT</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>24/25 SY Teacher - Elementary 8th Grade Math</td>
+<td>Glendale, AZ</td>
+<td>3 days ago</td>
+<td>2024-02-06</td>
+<td>Peoria Unified School District</td>
+<td>Be among the first 25 applicants</td>
+<td>Full-time</td>
+<td>Entry level</td>
+<td>Education and Training</td>
+<td>Primary and Secondary Education</td>
+<td>NaN</td>
+<td>AZ</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Math Tutors/Teachers (Grades 6-9) *Urgently Hiring*</td>
+<td>Winchester, CT</td>
+<td>1 month ago</td>
+<td>2023-12-15</td>
+<td>Catapult Learning</td>
+<td>Be among the first 25 applicants</td>
+<td>Part-time</td>
+<td>Entry level</td>
+<td>Education and Training</td>
+<td>Education Administration Programs</td>
+<td>NaN</td>
+<td>CT</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Math Tutors/Teachers (Grades 6-9) *Urgently Hiring*</td>
+<td>Stafford, CT</td>
+<td>2 months ago</td>
+<td>2023-11-30</td>
+<td>Catapult Learning</td>
+<td>Be among the first 25 applicants</td>
+<td>Part-time</td>
+<td>Entry level</td>
+<td>Education and Training</td>
+<td>Education Administration Programs</td>
+<td>NaN</td>
+<td>CT</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5th/6th Grade Math Teacher- iSchool Virtual Academy TCPA (iSVA)</td>
+<td>Lewisville, TX</td>
+<td>2 months ago</td>
+<td>2023-11-17</td>
+<td>Responsive Education Solutions</td>
+<td>Be among the first 25 applicants</td>
+<td>Full-time</td>
+<td>Entry level</td>
+<td>Education and Training</td>
+<td>Education Administration Programs</td>
+<td>NaN</td>
+<td>TX</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
-<div id="4c9fec17" class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the physics teacher data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: Replace 'physics_data.csv' with the actual filename/path of your data</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(<span class="st">'physics_data.csv'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Data loaded successfully!"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Dataset shape: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ALL COLUMNS IN THE DATASET:"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print all column names</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(df.columns, <span class="dv">1</span>):</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:2d}</span><span class="ss">. </span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total number of columns: </span><span class="sc">{</span><span class="bu">len</span>(df.columns)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"File not found. Please check the filename and path."</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Available files in current directory:"</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> os</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    files <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> os.listdir(<span class="st">'.'</span>) <span class="cf">if</span> f.endswith((<span class="st">'.csv'</span>, <span class="st">'.xlsx'</span>, <span class="st">'.json'</span>))]</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  - </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bbc1ec45" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import plotly for interactive visualizations</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a map showing job counts by state</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Creating interactive map of job counts by state..."</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># First, let's see what location-related columns we have</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>location_columns <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> <span class="bu">any</span>(keyword <span class="kw">in</span> col.lower() </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> keyword <span class="kw">in</span> [<span class="st">'state'</span>, <span class="st">'location'</span>, <span class="st">'place'</span>, <span class="st">'city'</span>, <span class="st">'region'</span>])]</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Location-related columns: </span><span class="sc">{</span>location_columns<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract state from location column (assuming format: "City, ST")</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'location'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Sample location values:"</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df[<span class="st">'location'</span>].head())</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract state abbreviation (last 2 characters after comma)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'state'</span>] <span class="op">=</span> df[<span class="st">'location'</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="op">-</span><span class="dv">1</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count jobs by state</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    state_counts <span class="op">=</span> df[<span class="st">'state'</span>].value_counts().reset_index()</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    state_counts.columns <span class="op">=</span> [<span class="st">'state'</span>, <span class="st">'job_count'</span>]</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Found </span><span class="sc">{</span><span class="bu">len</span>(state_counts)<span class="sc">}</span><span class="ss"> unique states/regions"</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Top 10 states:"</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(state_counts.head(<span class="dv">10</span>))</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create choropleth map</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.choropleth(</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        state_counts,</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        locations<span class="op">=</span><span class="st">'state'</span>,</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">'job_count'</span>,</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        locationmode<span class="op">=</span><span class="st">'USA-states'</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        scope<span class="op">=</span><span class="st">'usa'</span>,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        color_continuous_scale<span class="op">=</span><span class="st">'Blues'</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">'Physics/Math Teacher Job Postings by State'</span>,</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>{<span class="st">'job_count'</span>: <span class="st">'Number of Jobs'</span>, <span class="st">'state'</span>: <span class="st">'State'</span>}</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    fig.update_layout(</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>        title_x<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        geo<span class="op">=</span><span class="bu">dict</span>(showframe<span class="op">=</span><span class="va">False</span>, showcoastlines<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>        height<span class="op">=</span><span class="dv">600</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No 'location' column found. Available columns:"</span>)</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">list</span>(df.columns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating interactive map of job counts by state...
+Location-related columns: ['location', 'state']
+
+Sample location values:
+0      Thompson, CT
+1      Glendale, AZ
+2    Winchester, CT
+3      Stafford, CT
+4    Lewisville, TX
+Name: location, dtype: object
+
+Found 52 unique states/regions
+Top 10 states:
+           state  job_count
+0             TX         81
+1             CA         66
+2             MA         47
+3             NY         46
+4             IL         40
+5             FL         36
+6             VA         33
+7             NJ         31
+8  United States         30
+9             AZ         30
+
+Location-related columns: ['location', 'state']
+
+Sample location values:
+0      Thompson, CT
+1      Glendale, AZ
+2    Winchester, CT
+3      Stafford, CT
+4    Lewisville, TX
+Name: location, dtype: object
+
+Found 52 unique states/regions
+Top 10 states:
+           state  job_count
+0             TX         81
+1             CA         66
+2             MA         47
+3             NY         46
+4             IL         40
+5             FL         36
+6             VA         33
+7             NJ         31
+8  United States         30
+9             AZ         30</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+<div id="8629f066" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a map showing job counts by city</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Creating interactive map of job counts by city..."</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'location'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract city from location column (assuming format: "City, ST")</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'city'</span>] <span class="op">=</span> df[<span class="st">'location'</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count jobs by city</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    city_counts <span class="op">=</span> df[<span class="st">'city'</span>].value_counts().reset_index()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    city_counts.columns <span class="op">=</span> [<span class="st">'city'</span>, <span class="st">'job_count'</span>]</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Found </span><span class="sc">{</span><span class="bu">len</span>(city_counts)<span class="sc">}</span><span class="ss"> unique cities"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Top 15 cities with most job postings:"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(city_counts.head(<span class="dv">15</span>))</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For a proper city map, we need coordinates. Let's create a simple bar chart first</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and a scatter map for top cities</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create bar chart for top 20 cities</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    top_cities <span class="op">=</span> city_counts.head(<span class="dv">20</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    fig_bar <span class="op">=</span> px.bar(</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        top_cities,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'job_count'</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'city'</span>,</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        orientation<span class="op">=</span><span class="st">'h'</span>,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">'Top 20 Cities: Physics/Math Teacher Job Postings'</span>,</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        labels<span class="op">=</span>{<span class="st">'job_count'</span>: <span class="st">'Number of Jobs'</span>, <span class="st">'city'</span>: <span class="st">'City'</span>},</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">'job_count'</span>,</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        color_continuous_scale<span class="op">=</span><span class="st">'Blues'</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    fig_bar.update_layout(</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        height<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        yaxis<span class="op">=</span>{<span class="st">'categoryorder'</span>:<span class="st">'total ascending'</span>}</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    fig_bar.show()</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a bubble map for top cities (using approximate coordinates)</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Note: For a real implementation, you'd want to geocode the cities</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    top_10_cities <span class="op">=</span> city_counts.head(<span class="dv">10</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sample coordinates for demonstration (you'd normally geocode these)</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    city_coords <span class="op">=</span> {</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">'New York'</span>: {<span class="st">'lat'</span>: <span class="fl">40.7128</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">74.0060</span>},</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Los Angeles'</span>: {<span class="st">'lat'</span>: <span class="fl">34.0522</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">118.2437</span>},</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Chicago'</span>: {<span class="st">'lat'</span>: <span class="fl">41.8781</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">87.6298</span>},</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Houston'</span>: {<span class="st">'lat'</span>: <span class="fl">29.7604</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">95.3698</span>},</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Phoenix'</span>: {<span class="st">'lat'</span>: <span class="fl">33.4484</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">112.0740</span>},</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Philadelphia'</span>: {<span class="st">'lat'</span>: <span class="fl">39.9526</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">75.1652</span>},</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">'San Antonio'</span>: {<span class="st">'lat'</span>: <span class="fl">29.4241</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">98.4936</span>},</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">'San Diego'</span>: {<span class="st">'lat'</span>: <span class="fl">32.7157</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">117.1611</span>},</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Dallas'</span>: {<span class="st">'lat'</span>: <span class="fl">32.7767</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">96.7970</span>},</span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">'San Jose'</span>: {<span class="st">'lat'</span>: <span class="fl">37.3382</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">121.8863</span>},</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Austin'</span>: {<span class="st">'lat'</span>: <span class="fl">30.2672</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">97.7431</span>},</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Jacksonville'</span>: {<span class="st">'lat'</span>: <span class="fl">30.3322</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">81.6557</span>},</span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">'San Francisco'</span>: {<span class="st">'lat'</span>: <span class="fl">37.7749</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">122.4194</span>},</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Columbus'</span>: {<span class="st">'lat'</span>: <span class="fl">39.9612</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">82.9988</span>},</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Fort Worth'</span>: {<span class="st">'lat'</span>: <span class="fl">32.7555</span>, <span class="st">'lon'</span>: <span class="op">-</span><span class="fl">97.3308</span>}</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add coordinates to top cities if available</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>    top_10_cities[<span class="st">'lat'</span>] <span class="op">=</span> top_10_cities[<span class="st">'city'</span>].<span class="bu">map</span>(<span class="kw">lambda</span> x: city_coords.get(x, {}).get(<span class="st">'lat'</span>))</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    top_10_cities[<span class="st">'lon'</span>] <span class="op">=</span> top_10_cities[<span class="st">'city'</span>].<span class="bu">map</span>(<span class="kw">lambda</span> x: city_coords.get(x, {}).get(<span class="st">'lon'</span>))</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter out cities without coordinates</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    cities_with_coords <span class="op">=</span> top_10_cities.dropna(subset<span class="op">=</span>[<span class="st">'lat'</span>, <span class="st">'lon'</span>])</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> cities_with_coords.empty:</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        fig_map <span class="op">=</span> px.scatter_mapbox(</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>            cities_with_coords,</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>            lat<span class="op">=</span><span class="st">'lat'</span>,</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>            lon<span class="op">=</span><span class="st">'lon'</span>,</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>            size<span class="op">=</span><span class="st">'job_count'</span>,</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a>            hover_name<span class="op">=</span><span class="st">'city'</span>,</span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>            hover_data<span class="op">=</span>{<span class="st">'job_count'</span>: <span class="va">True</span>, <span class="st">'lat'</span>: <span class="va">False</span>, <span class="st">'lon'</span>: <span class="va">False</span>},</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>            size_max<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>            zoom<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>            title<span class="op">=</span><span class="st">'Physics/Math Teacher Jobs by City (Interactive Map)'</span>,</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>            mapbox_style<span class="op">=</span><span class="st">'open-street-map'</span></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>        fig_map.update_layout(height<span class="op">=</span><span class="dv">600</span>)</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>        fig_map.show()</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No coordinate data available for bubble map visualization"</span>)</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No 'location' column found for city analysis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating interactive map of job counts by city...
+
+Found 395 unique cities
+Top 15 cities with most job postings:
+             city  job_count
+0         Chicago         24
+1        New York         21
+2        Richmond         19
+3    Philadelphia         15
+4         Houston         15
+5        Brooklyn         14
+6   San Francisco         12
+7      Washington         11
+8     Springfield         11
+9   United States          9
+10        Lansing          7
+11     Fort Worth          6
+12         Boston          6
+13      San Diego          6
+14          Salem          6</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\adamd\AppData\Local\Temp\ipykernel_18204\4144207184.py:64: SettingWithCopyWarning:
+
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+C:\Users\adamd\AppData\Local\Temp\ipykernel_18204\4144207184.py:65: SettingWithCopyWarning:
+
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+C:\Users\adamd\AppData\Local\Temp\ipykernel_18204\4144207184.py:71: DeprecationWarning:
+
+*scatter_mapbox* is deprecated! Use *scatter_map* instead. Learn more at: https://plotly.com/python/mapbox-to-maplibre/
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
 </div>
 
 
